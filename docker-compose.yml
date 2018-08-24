@@ -1,0 +1,46 @@
+version: '3'
+services:
+  tutorialdocker-bd:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=tutorial_docker_owner
+      - POSTGRES_PASSWORD=tutorial_docker_owner
+      - POSTGRES_DB=postgres
+  pgadmin4-service:
+    image: dpage/pgadmin4:latest
+    depends_on:
+      - tutorialdocker-bd
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=roger.n.gouveia@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+  rabbitmq-service:
+    image: rabbitmq:latest
+    build: ./src/main/resources/rabbitmq/
+  tutorialdockerconsumer-service:
+    image: rabbithole/tutorial_docker_consumer
+    build: .
+    depends_on:
+      - tutorialdocker-bd
+      - rabbitmq-service
+    environment:
+      - APP_PROFILE=consumer
+      - TUTORIAL_DB_HOST=tutorialdocker-bd
+      - TUTORIAL_DB_NAME=postgres
+      - TUTORIAL_DB_USER=tutorial_docker_owner
+      - TUTORIAL_DB_PW=tutorial_docker_owner
+      - TUTORIAL_DB_PORT=5432
+      - RABBITMQ_HOST=rabbitmqregua-service
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PW=guest
+  tutorialdockerproducer-service:
+    image: rabbithole/tutorial_docker_producer
+    build: .
+    depends_on:
+      - rabbitmq-service
+    environment:
+      - APP_PROFILE=producer
+      - RABBITMQ_HOST=rabbitmqregua-service
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PW=guest
