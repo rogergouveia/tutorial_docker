@@ -1,0 +1,86 @@
+{  
+   "rabbit_version":"3.6.15",
+   "users":[  
+      {  
+         "name":"admin",
+         "password_hash":"VlWjiloY3Sbop9rXzxymCMfk+T/durYCGs9bUJqO0aZKJb8D",
+         "hashing_algorithm":"rabbit_password_hashing_sha256",
+         "tags":"administrator"
+      },
+      {  
+         "name":"guest",
+         "password_hash":"X9TwbGRhjazmxojA2AZHZpkAsWYoKmG0XKAxIL07DmvMNZLi",
+         "hashing_algorithm":"rabbit_password_hashing_sha256",
+         "tags":"administrator"
+      }
+   ],
+   "vhosts":[  
+      {  
+         "name":"/"
+      }
+   ],
+   "permissions":[  
+      {  
+         "user":"admin",
+         "vhost":"/",
+         "configure":".*",
+         "write":".*",
+         "read":".*"
+      },
+      {  
+         "user":"guest",
+         "vhost":"/",
+         "configure":".*",
+         "write":".*",
+         "read":".*"
+      }
+   ],
+   "parameters":[  
+
+   ],
+   "global_parameters":[  
+      {  
+         "name":"cluster_name",
+         "value":"rabbit@rabbithole"
+      }
+   ],
+   "policies":[  
+
+   ],
+   "queues":[  
+      {  
+         "name":"dev.test.queue",
+         "vhost":"/",
+         "durable":true,
+         "auto_delete":false,
+         "arguments":{  
+
+         }
+      }
+   ],
+   "exchanges":[  
+      {  
+         "name":"dev.test",
+         "vhost":"/",
+         "type":"topic",
+         "durable":true,
+         "auto_delete":false,
+         "internal":false,
+         "arguments":{  
+
+         }
+      }
+   ],
+   "bindings":[  
+      {  
+         "source":"dev.test",
+         "vhost":"/",
+         "destination":"dev.test.queue",
+         "destination_type":"queue",
+         "routing_key":"rout.test",
+         "arguments":{  
+
+         }
+      }
+   ]
+}

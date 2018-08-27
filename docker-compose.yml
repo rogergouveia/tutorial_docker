@@ -1,46 +1,46 @@
 version: '3'
 services:
-  tutorialdocker-bd:
+  bd:
     image: postgres:latest
     environment:
       - POSTGRES_USER=tutorial_docker_owner
       - POSTGRES_PASSWORD=tutorial_docker_owner
       - POSTGRES_DB=postgres
-  pgadmin4-service:
+  pgadmin4:
     image: dpage/pgadmin4:latest
     depends_on:
-      - tutorialdocker-bd
+      - bd
     environment:
       - PGADMIN_DEFAULT_EMAIL=roger.n.gouveia@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=postgres
-  rabbitmq-service:
-    image: rabbitmq:latest
-    build: ./src/main/resources/rabbitmq/
-  tutorialdockerconsumer-service:
+  rabbitmq:
+    image: rabbitmq:management
+    build: ./rabbitmq/
+  consumer:
     image: rabbithole/tutorial_docker_consumer
-    build: .
     depends_on:
-      - tutorialdocker-bd
-      - rabbitmq-service
+      - bd
+      - rabbitmq
+    restart: on-failure
     environment:
       - APP_PROFILE=consumer
-      - TUTORIAL_DB_HOST=tutorialdocker-bd
+      - TUTORIAL_DB_HOST=bd
       - TUTORIAL_DB_NAME=postgres
       - TUTORIAL_DB_USER=tutorial_docker_owner
       - TUTORIAL_DB_PW=tutorial_docker_owner
       - TUTORIAL_DB_PORT=5432
-      - RABBITMQ_HOST=rabbitmqregua-service
+      - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
-      - RABBITMQ_USER=guest
-      - RABBITMQ_PW=guest
-  tutorialdockerproducer-service:
+      - RABBITMQ_USER=admin
+      - RABBITMQ_PW=admin
+  producer: 
     image: rabbithole/tutorial_docker_producer
-    build: .
     depends_on:
-      - rabbitmq-service
+      - rabbitmq
+    restart: on-failure
     environment:
       - APP_PROFILE=producer
-      - RABBITMQ_HOST=rabbitmqregua-service
+      - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
-      - RABBITMQ_USER=guest
-      - RABBITMQ_PW=guest
+      - RABBITMQ_USER=admin
+      - RABBITMQ_PW=admin
