@@ -13,14 +13,20 @@ services:
     environment:
       - PGADMIN_DEFAULT_EMAIL=roger.n.gouveia@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=postgres
+    ports:
+      - 81:80
   rabbitmq:
     image: rabbitmq:management
     build: ./rabbitmq/
+    ports:
+      - 80:15672
   consumer:
     image: rabbithole/tutorial_docker_consumer
     depends_on:
       - bd
       - rabbitmq
+    deploy:
+      replicas: 4
     restart: on-failure
     environment:
       - APP_PROFILE=consumer
@@ -31,8 +37,8 @@ services:
       - TUTORIAL_DB_PORT=5432
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
-      - RABBITMQ_USER=admin
-      - RABBITMQ_PW=admin
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PW=guest
   producer: 
     image: rabbithole/tutorial_docker_producer
     depends_on:
@@ -42,5 +48,5 @@ services:
       - APP_PROFILE=producer
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
-      - RABBITMQ_USER=admin
-      - RABBITMQ_PW=admin
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PW=guest

@@ -33,13 +33,18 @@ public class FilaImplConsumidor implements FilaConsumidor{
 
     @Override
     public void consumir(Object message) {
+        
         System.out.println("MENSAGEM NA FILA...");
         if (message instanceof Item) {
             Item order = (Item)message;
             System.out.println(order.getProduto()+":RECEBIDO");
             orderRepo.save(order);
             System.out.println(order.getProduto()+":SALVO NO BD");
-            
+//            try {
+//                Thread.sleep(30000);
+//            } catch (InterruptedException e) {
+//                System.out.println("("+id+")deu pau no sleeeep :(");
+//            }
         }
         else {
             System.out.println("deu pau no consumo da fila :(");

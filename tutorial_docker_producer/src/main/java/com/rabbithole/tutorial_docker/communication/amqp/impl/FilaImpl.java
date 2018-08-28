@@ -22,7 +22,7 @@ public class FilaImpl implements Fila{
     @Bean
     @Override
     public Queue queue() {
-        return new Queue(filaConfigurations.getQueueName(), true);
+        return new Queue(filaConfigurations.getQueueName(), false);
     }
 
     @Bean

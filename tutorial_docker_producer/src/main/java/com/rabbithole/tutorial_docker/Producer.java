@@ -15,7 +15,7 @@ public class Producer {
     
     private Long counter=0l;
     
-    @Scheduled(fixedRate=15000)
+    @Scheduled(fixedRate=5000)
     public void postarNaFila() {
         String produto = "PRODUTO"+counter;
         Item order = new Item();
