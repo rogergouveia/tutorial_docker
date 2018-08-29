@@ -8,8 +8,6 @@ services:
       - POSTGRES_DB=postgres
   pgadmin4:
     image: dpage/pgadmin4:latest
-    depends_on:
-      - bd
     environment:
       - PGADMIN_DEFAULT_EMAIL=roger.n.gouveia@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=postgres
@@ -17,7 +15,6 @@ services:
       - 81:80
   rabbitmq:
     image: rabbitmq:management
-    build: ./rabbitmq/
     ports:
       - 80:15672
   consumer:
@@ -29,7 +26,6 @@ services:
       replicas: 4
     restart: on-failure
     environment:
-      - APP_PROFILE=consumer
       - TUTORIAL_DB_HOST=bd
       - TUTORIAL_DB_NAME=postgres
       - TUTORIAL_DB_USER=tutorial_docker_owner
@@ -45,7 +41,6 @@ services:
       - rabbitmq
     restart: on-failure
     environment:
-      - APP_PROFILE=producer
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
       - RABBITMQ_USER=guest

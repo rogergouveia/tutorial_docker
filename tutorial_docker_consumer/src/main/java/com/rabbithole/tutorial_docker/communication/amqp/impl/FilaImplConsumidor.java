@@ -40,11 +40,11 @@ public class FilaImplConsumidor implements FilaConsumidor{
             System.out.println(order.getProduto()+":RECEBIDO");
             orderRepo.save(order);
             System.out.println(order.getProduto()+":SALVO NO BD");
-//            try {
-//                Thread.sleep(30000);
-//            } catch (InterruptedException e) {
-//                System.out.println("("+id+")deu pau no sleeeep :(");
-//            }
+            try {
+                Thread.sleep(30000);
+            } catch (InterruptedException e) {
+                System.out.println("deu pau no sleeeep :(");
+            }
         }
         else {
             System.out.println("deu pau no consumo da fila :(");
