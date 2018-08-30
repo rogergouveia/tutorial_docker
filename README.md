@@ -1,4 +1,4 @@
-# Docker Compose/Swarm Tutorial (SpringBoot + Gradle + RabbitMQ + PostgreSQL)
+# Docker Compose/Swarm Example (SpringBoot + Gradle + RabbitMQ + PostgreSQL)
 
 Small project demonstrating a simple way to build and run a SpringBoot+Gradle+RabbitMq+PostgreSQL service with Docker Compose and Docker Swarm. This Project is composed of two simple Springboot Applications. One of them - called Producer - posts an object Item in the Rabbitmq queue each 5 seconds. The other one - called Consumer - consumes from the queue, saves the Item object in a PostgreSQL DataBase, then it sleeps for 30 seconds.
 
@@ -80,8 +80,6 @@ Open another terminal, and execute the command below to see what is happening wi
 ```
 docker service logs -f myswarm_producer
 ```
-
-
 
 ## Authors
 
