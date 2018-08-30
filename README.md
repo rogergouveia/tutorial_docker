@@ -31,7 +31,7 @@ Installation of the Prerequisites is outside the scope of this tutorial
 
 ### Build the images
 
-In the terminal, execute the command below in the folders "tutorial_docker/tutorial_docker_consumer" and "tutorial_docker/tutorial_docker_producer":
+In the terminal, execute the command below in the folders "./tutorial_docker_consumer" and "./tutorial_docker_producer":
 ```
 gradle build docker
 ```
@@ -43,7 +43,7 @@ docker image ls
 
 ### Run
 
-Go to the base project folder "tutorial_docker" and execute:
+Go to the base folder and execute:
 ```
 docker-compose up
 ```
@@ -64,7 +64,7 @@ Initialize docker in swarm mode
 docker swarm init
 ```
 
-To run your service in swarm mode, go to the base project folder "tutorial_docker" and execute:
+To run your service in swarm mode, go to the base folder and execute:
 ```
 docker stack deploy -c docker-compose.yml myswarm
 ```
